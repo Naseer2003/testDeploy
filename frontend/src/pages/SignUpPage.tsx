@@ -1,9 +1,12 @@
-
+import { Button } from "@/components/ui/button";
 
 const SignUpPage = () => {
   return (
-    <div>SignUpPage</div>
-  )
-}
+ <div>
+    <h1>SignUpPage</h1>
+    <Button className="">Sign Up</Button>
+ </div>
+  );
+};
 
-export default SignUpPage
+export default SignUpPage;
