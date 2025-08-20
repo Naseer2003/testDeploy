@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import connection from "./config/db.js";
 import userRouter from "./routes/user.routes.js";
 import adminRouter from "./routes/admin.routes.js";
@@ -11,12 +12,27 @@ const app = express();
 dotenv.config();
 app.use(express.json());
 
+if (
+  !process.env.CLOUD_NAME ||
+  !process.env.CLOUD_API_KEY ||
+  !process.env.CLOUD_API_SECRET
+) {
+  console.error("Missing Cloudinary environment variables");
+  process.exit(1);
+}
 
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+  }),
+);
 
 app.use("/api/user", userRouter);
 app.use("/api/admin", adminRouter);
 app.use("/api/folder", folderRouter);
-
 
 connection().then(() => {
   app.listen(PORT, () => {
