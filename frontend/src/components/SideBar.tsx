@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import  {  useEffect, useState } from "react";
 import { FiLayers } from "react-icons/fi";
 import { fetchFolders } from "../config/api";
+import { useNavigate } from "react-router-dom";
+
 
 interface SidebarProps {
   onShowAll: () => void;
@@ -9,6 +11,7 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ onShowAll }) => {
   const [folders, setFolders] = useState<{ _id: string; name: string; totalItems: number }[]>([]);
   const [selected, setSelected] = useState<string>("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchFolders()
@@ -25,8 +28,8 @@ const Sidebar: React.FC<SidebarProps> = ({ onShowAll }) => {
     <aside
       className="
         w-64 h-[calc(100vh-56px)]
-        bg-gray-800 dark:bg-gray-700
-        border-r border-gray-400 dark:border-gray-700
+        bg-[#2b2b2b] dark:bg-black text-white dark:text-gray-100
+        border-r border-t border-gray-400 dark:border-gray-700
         flex flex-col
         overflow-y-auto transition-colors
       "
@@ -57,7 +60,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onShowAll }) => {
         {folders.map(({ _id, name, totalItems }) => (
           <button
             key={_id}
-            onClick={() => handleClick(_id)}
+            onClick={() => navigate(`/folder/${_id}`)}
             className={`
               flex items-center justify-between w-full px-3 py-4 rounded-md transition
               ${selected === _id

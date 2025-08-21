@@ -27,7 +27,7 @@ const HomePage: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
+    <div className="min-h-screen bg-white dark:bg-black transition-colors">
       <Navbar />
       <div className="flex">
         <Sidebar onShowAll={loadFolders} />
