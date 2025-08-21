@@ -5,7 +5,7 @@ import Sidebar from "../components/SideBar";
 import GridFolders from "../components/GirdFolders";
 import { fetchFolders } from "../config/api";
 import { api } from "@/config/api";
-import toast from "react-hot-toast";
+import {toast} from "sonner";
 
 // shadcn/ui
 import { Button } from "@/components/ui/button";

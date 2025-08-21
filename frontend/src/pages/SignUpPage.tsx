@@ -3,7 +3,7 @@ import axios from "axios";
 import { UserDataContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
-import { toast } from "react-hot-toast";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import {
