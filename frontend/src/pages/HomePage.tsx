@@ -71,7 +71,7 @@ const HomePage: React.FC = () => {
             <Button onClick={() => setOpen(true)}>+ Create Folder</Button>
           </div>
 
-          <GridFolders folders={folders} />
+          <GridFolders folders={folders} onRefresh={loadFolders}  />
 
           {/* Create-Folder Dialog */}
           <Dialog open={open} onOpenChange={setOpen}>

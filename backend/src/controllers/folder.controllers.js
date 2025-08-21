@@ -49,3 +49,14 @@ export const getFolders = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const deleteFolder = async(req, res) => {
+  try {
+    const folder = await Folder.findByIdAndDelete(req.params.id);
+    if (!folder) return res.status(404).json({ error: 'Folder not found' });
+    res.json({ message: 'Folder deleted successfully' });
+  } catch (err) {
+    console.error('Delete folder error:', err);
+    res.status(500).json({ error: err.message });
+  }
+}
