@@ -1,5 +1,6 @@
 import express from "express";
 import multer from "multer";
+import { deleteFile, filesByFolder, uploadFile } from "../controllers/file.controllers.js";
 
 const fileRouter = express.Router();
 const storage = multer.memoryStorage();
@@ -13,4 +14,4 @@ fileRouter.post('/upload', upload.single('file'), uploadFile); // Changed 'file'
 fileRouter.get('/:folderId', filesByFolder);
 fileRouter.delete('/:id', deleteFile);
 
-module.exports = fileRouter;
+export default fileRouter;

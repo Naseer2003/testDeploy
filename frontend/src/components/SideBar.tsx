@@ -25,14 +25,14 @@ const Sidebar: React.FC<SidebarProps> = ({ onShowAll }) => {
     <aside
       className="
         w-64 h-[calc(100vh-56px)]
-        bg-white dark:bg-gray-800
-        border-r border-gray-200 dark:border-gray-700
+        bg-gray-800 dark:bg-gray-700
+        border-r border-gray-400 dark:border-gray-700
         flex flex-col
         overflow-y-auto transition-colors
       "
     >
       {/* Sidebar header */}
-      <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+      <div className="p-4 border-b border-gray-400 dark:border-gray-700">
         <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-200">
           Folders
         </h2>

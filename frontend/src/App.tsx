@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import CreatePage from "./pages/CreatePage";
 import { Toaster } from "react-hot-toast";
 import { ThemeProvider } from "./context/ThemeContext";
+import FolderDetailPage from "./pages/FolderDetailPage";
 
 const App = () => {
   return (
@@ -26,6 +27,8 @@ const App = () => {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/create" element={<CreatePage />} />
+        <Route path="/create/:folderId" element={<CreatePage />} />
+        <Route path="/folder/:folderId" element={<FolderDetailPage />} />
       </Routes>
       </ThemeProvider>
     </>

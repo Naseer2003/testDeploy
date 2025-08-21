@@ -1,46 +1,42 @@
-import multer from 'multer';
-import cloudinary from '../config/cloudinary';
+import { Readable } from "stream";   // <- add this import
+import cloudinary from "../config/cloudinary.js";
 import File from "../models/file.model.js";
 import Folder from "../models/folder.model.js";
 
-// Multer setup
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
-
 export const uploadFile = async (req, res) => {
   try {
-    if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
+    if (!req.file) return res.status(400).json({ error: "No file uploaded" });
     if (!req.body.folderId)
-      return res.status(400).json({ error: 'Folder ID is required' });
+      return res.status(400).json({ error: "Folder ID is required" });
 
     const folder = await Folder.findById(req.body.folderId);
-    if (!folder) return res.status(404).json({ error: 'Folder not found' });
+    if (!folder) return res.status(404).json({ error: "Folder not found" });
 
-    const stream = cloudinary.uploader.upload_stream(
-      { resource_type: 'auto', folder: folder.name },
-      async (error, uploadedFile) => {
-        if (error) {
-          console.error('Cloudinary upload error:', error);
-          return res.status(500).json({ error: error.message });
-        }
+    // Convert buffer to readable stream for Cloudinary
+    const stream = Readable.from(req.file.buffer);
 
-        const file = new File ({
-          name: uploadedFile.original_filename,
-          url: uploadedFile.secure_url,
-          public_id: uploadedFile.public_id,
-          folder: folder._id,
-          size: uploadedFile.bytes,
-          type: uploadedFile.format,
-        });
+    // Promise-based upload
+    const uploadedFile = await new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        { resource_type: "auto", folder: folder.name },
+        (error, result) => (error ? reject(error) : resolve(result))
+      );
+      stream.pipe(uploadStream);
+    });
 
-        await file.save();
-        res.json(file);
-      },
-    );
+    const file = new File({
+      name: uploadedFile.original_filename || req.file.originalname,
+      url: uploadedFile.secure_url,
+      public_id: uploadedFile.public_id,
+      folder: folder._id,
+      size: uploadedFile.bytes,
+      type: uploadedFile.format,
+    });
 
-    stream.end(req.file.buffer);
+    await file.save();
+    res.json(file);
   } catch (err) {
-    console.error('Upload file error:', err);
+    console.error("Upload file error:", err);
     res.status(500).json({ error: err.message });
   }
 };
@@ -72,4 +68,3 @@ export const deleteFile = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-

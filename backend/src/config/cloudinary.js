@@ -1,16 +1,16 @@
-import cloudinary from 'cloudinary';
+// src/config/cloudinary.js
+import { v2 as cloudinary } from 'cloudinary';
 import dotenv from 'dotenv';
 
-dotenv.config(); 
+dotenv.config();
 
-// Validate env variables before config
 if (
   !process.env.CLOUD_NAME ||
   !process.env.CLOUD_API_KEY ||
   !process.env.CLOUD_API_SECRET
 ) {
   console.error('Cloudinary environment variables missing');
-  process.exit(1); // Stop the server if config is incomplete
+  process.exit(1);
 }
 
 cloudinary.config({
@@ -20,5 +20,4 @@ cloudinary.config({
 });
 
 console.log('Cloudinary connected successfully');
-
 export default cloudinary;
