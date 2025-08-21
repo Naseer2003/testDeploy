@@ -75,7 +75,7 @@ const Navbar: React.FC = () => {
           {!adminToken && (
             <Dialog open={open} onOpenChange={setOpen}>
               <DialogTrigger asChild>
-                <Button variant="outline" size="sm">
+                <Button variant="secondary" size="sm">
                   Admin Login
                 </Button>
               </DialogTrigger>
@@ -90,7 +90,7 @@ const Navbar: React.FC = () => {
                   <CardContent>
                     <form onSubmit={handleAdminLogin} className="space-y-4">
                       <div>
-                        <Label>Email</Label>
+                        <Label className="mb-3">Email</Label>
                         <Input
                           type="email"
                           required
@@ -99,7 +99,7 @@ const Navbar: React.FC = () => {
                         />
                       </div>
                       <div>
-                        <Label>Password</Label>
+                        <Label className="mb-3">Password</Label>
                         <Input
                           type="password"
                           required
@@ -119,7 +119,7 @@ const Navbar: React.FC = () => {
 
           {/* Logout / User login */}
           {token || adminToken ? (
-            <Button variant="destructive" size="sm" onClick={handleLogout}>
+            <Button variant="destructive" className="flex items-center justify-center" size="sm" onClick={handleLogout}>
               Logout
             </Button>
           ) : (
