@@ -53,7 +53,7 @@ const Navbar: React.FC = () => {
 
   return (
     <div className="flex">
-      <nav className="bg-[#2b2b2b] dark:bg-black border-b text-white dark:text-gray-100 w-full flex items-center px-6 py-2 shadow-md transition-colors duration-300">
+      <nav className="fixed top-0 left-0 right-0 z-30 bg-[#2b2b2b] dark:bg-black border-b text-white dark:text-gray-100 w-full flex items-center px-6 py-2 shadow-md transition-colors duration-300">
         {/* Logo */}
         <div
           className="flex flex-col leading-tight cursor-pointer"
