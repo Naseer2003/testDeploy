@@ -14,7 +14,10 @@ interface ProviderProps {
 }
 
 const UserContext: React.FC<ProviderProps> = ({ children }) => {
-  const serverUrl = "http://localhost:5000";
+  const serverUrl =
+    import.meta.env.MODE === "development"
+      ? "http://localhost:5000"
+      : "https://filecloud-zadq.onrender.com"; // your Render backend
 
   const value: UserContextProps = {
     serverUrl,
